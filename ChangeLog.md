@@ -20,6 +20,10 @@
 - src/renderer/Renderer.ts: boardYToCanvas() 追加、全描画メソッドで座標変換を統一
 - src/main.ts: gameOver 時の Enter ハンドラ追加
 
+### Added
+- play.bat: ワンクリック起動用バッチファイル。ダブルクリックで自動インストール + サーバー起動 + ブラウザ表示
+- README.md: 起動セクションに play.bat によるワンクリック起動を追加
+
 ## [1.0.0] - 2026-06-28
 
 ### Added
