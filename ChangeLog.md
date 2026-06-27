@@ -21,8 +21,12 @@
 - src/main.ts: gameOver 時の Enter ハンドラ追加
 
 ### Added
-- play.bat: ワンクリック起動用バッチファイル。ダブルクリックで自動インストール + サーバー起動 + ブラウザ表示
+: - play.bat: ワンクリック起動用バッチファイル。ダブルクリックで自動インストール + サーバー起動 + ブラウザ表示
 - README.md: 起動セクションに play.bat によるワンクリック起動を追加
+- public/favicon.ico: Tピースをモチーフにしたアプリアイコン（16–256px マルチサイズ）
+- public/icon-256.png: 256x256 PNG版アイコン
+- Tetris.lnk: play.bat へのショートカット（カスタムアイコン適用）
+- index.html: favicon リンク追加
 
 ## [1.0.0] - 2026-06-28
 
