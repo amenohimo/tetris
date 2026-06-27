@@ -34,6 +34,14 @@ async function main(): Promise<void> {
   };
   window.addEventListener('keydown', handleIdleStart);
 
+  // Enter restarts from game over
+  const handleGameOverRestart = (e: KeyboardEvent) => {
+    if (e.code === 'Enter' && game.state === 'gameOver') {
+      game.restart();
+    }
+  };
+  window.addEventListener('keydown', handleGameOverRestart);
+
   // Input initially detached — no premature movement on idle screen.
   // Once attached (above), it stays active for all states:
   //   - playing: normal controls

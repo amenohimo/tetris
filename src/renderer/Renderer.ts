@@ -1,4 +1,6 @@
 import type { Piece, BoardGrid, GameState, HoldInfo, ScoreState, Position, GameConfig, PieceType } from '../types';
+import { HIDDEN_ROWS } from '../game/Board';
+
 
 const BOARD_COLS = 10;
 const BOARD_ROWS = 20;
@@ -77,6 +79,10 @@ class Renderer {
     canvas.style.height = `${canvas.height}px`;
   }
 
+  private boardYToCanvas(boardY: number): number {
+    return boardY - HIDDEN_ROWS;
+  }
+
   render(gameState: {
     board: BoardGrid;
     currentPiece: Piece | null;
@@ -133,11 +139,11 @@ class Renderer {
   }
 
   private drawBoard(board: BoardGrid): void {
-    for (let y = 0; y < board.length; y++) {
+    for (let y = HIDDEN_ROWS; y < board.length; y++) {
       for (let x = 0; x < board[y].length; x++) {
         const cell = board[y][x];
         if (cell) {
-          this.drawCell(x, y, PIECE_COLORS[cell]);
+          this.drawCell(x, this.boardYToCanvas(y), PIECE_COLORS[cell]);
         }
       }
     }
@@ -149,7 +155,7 @@ class Renderer {
       for (let x = 0; x < piece.shape[y].length; x++) {
         if (piece.shape[y][x]) {
           const drawX = piece.position.x + x;
-          const drawY = piece.position.y + y;
+          const drawY = this.boardYToCanvas(piece.position.y + y);
           if (drawY >= 0) {
             this.drawCell(drawX, drawY, PIECE_COLORS[piece.type]);
           }
@@ -167,7 +173,7 @@ class Renderer {
       for (let x = 0; x < piece.shape[y].length; x++) {
         if (piece.shape[y][x]) {
           const drawX = ghostPos.x + x;
-          const drawY = ghostPos.y + y;
+          const drawY = this.boardYToCanvas(ghostPos.y + y);
           if (drawY >= 0) {
             const cellX = PANEL_WIDTH + drawX * this.blockSize;
             const cellY = drawY * this.blockSize;
@@ -193,7 +199,7 @@ class Renderer {
       for (let x = 0; x < piece.shape[y].length; x++) {
         if (piece.shape[y][x]) {
           const drawX = ghostPos.x + x;
-          const drawY = ghostPos.y + y;
+          const drawY = this.boardYToCanvas(ghostPos.y + y);
           if (drawY >= 0) {
             const cellX = PANEL_WIDTH + drawX * this.blockSize;
             const cellY = drawY * this.blockSize;

@@ -1,5 +1,25 @@
 # ChangeLog
 
+## [1.0.1] - 2026-06-28
+
+### Fixed
+
+#### GAME OVER 時に Enter でリスタートできない
+- **原因**: Enter キーのハンドラ (handleIdleStart) が `game.state === 'idle'` 時のみ動作し、初回ゲーム開始後に removeEventListener で削除されていた。gameOver 状態ではどのハンドラも Enter を受け付けなかった
+- **修正**: gameOver 状態専用の Enter ハンドラを追加。game.state === 'gameOver' 時に game.restart() を呼び出す
+
+#### 一番下から2行のラインが表示されない + ゴーストピースがずれる
+- **原因**: Board は Tetris Guideline 準拠の内部22行 (HIDDEN_ROWS=2 のバッファ + VISIBLE_ROWS=20) で正しかったが、Renderer が board→canvas の座標変換を一切行わずに board の全22行を canvas の y=0 から描画していた。その結果:
+  - board rows 0-1 (バッファ/非表示のはず) → canvas 上部に表示されてしまう
+  - board rows 20-21 (可視部の下2行) → canvas 高さ (20行分) を超え画面外に
+  - さらに、場当たり的な -2 補正を drawBoard/drawPiece にのみ適用したため、drawGhost との不整合でゴーストが2行ずれて表示された
+- **修正**: Renderer に `boardYToCanvas(boardY: number): number` ヘルパーを追加 (`boardY - HIDDEN_ROWS`)。drawBoard/drawPiece/drawGhost の全描画箇所で一貫して使用。バッファ行 (y=0,1) はスキップし、board rows 2-21 を canvas rows 0-19 に正しくマッピング
+
+### Changed
+- src/game/Board.ts: ROWS=22, HIDDEN_ROWS=2 を維持（Tetris Guideline 準拠の正しい設計）
+- src/renderer/Renderer.ts: boardYToCanvas() 追加、全描画メソッドで座標変換を統一
+- src/main.ts: gameOver 時の Enter ハンドラ追加
+
 ## [1.0.0] - 2026-06-28
 
 ### Added
