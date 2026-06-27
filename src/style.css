@@ -1,0 +1,71 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #e0e0e0;
+  overflow: hidden;
+}
+
+#game-container {
+  position: relative;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  box-shadow: 
+    0 0 40px rgba(100, 50, 255, 0.15),
+    0 0 80px rgba(100, 50, 255, 0.05),
+    inset 0 0 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#game-canvas {
+  display: block;
+  border-radius: 8px;
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(100, 50, 255, 0.1);
+}
+
+#controls-info {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+
+#controls-info code {
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Subtle animated background effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(100, 50, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(0, 200, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}

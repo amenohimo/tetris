@@ -1,0 +1,14 @@
+{
+  "name": "tetris",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "smol-toml": "^1.3.1"
+  }
+}
