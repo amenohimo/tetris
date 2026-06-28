@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.0.2] - 2026-06-28
+
+### Changed
+
+#### デフォルトキー配置を変更
+- **右回転 (rotateCW)**: `ArrowUp` → `KeyX`
+- **Hold**: `KeyC` → `ShiftLeft` (左Shiftキー)
+- **左回転 (rotateCCW)**: `KeyZ` のまま変更なし
+- 併せて README.md のキー一覧表、TOML設定例、画面下部の操作ガイド表示も更新
+
+### Changed
+- public/config.toml: デフォルトキーを更新
+- src/config/config.ts: DEFAULT_CONFIG のキーを更新
+- index.html: 操作ガイド文字列を更新
+- README.md: 操作一覧表とTOML例を更新
+
 ## [1.0.1] - 2026-06-28
 
 ### Fixed
