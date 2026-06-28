@@ -57,9 +57,9 @@ npm run preview  # ビルド結果をプレビュー
 | 右移動 | → (ArrowRight) | `config.toml` → `moveRight` |
 | ソフトドロップ | ↓ (ArrowDown) | `config.toml` → `softDrop` |
 | ハードドロップ | Space | `config.toml` → `hardDrop` |
-| 右回転 | ↑ (ArrowUp) | `config.toml` → `rotateCW` |
+| 右回転 | X | `config.toml` → `rotateCW` |
 | 左回転 | Z | `config.toml` → `rotateCCW` |
-| Hold | C | `config.toml` → `hold` |
+| Hold | LShift (左Shift) | `config.toml` → `hold` |
 | ポーズ | Escape | `config.toml` → `pause` |
 | リスタート | R | `config.toml` → `restart` |
 
@@ -71,9 +71,9 @@ npm run preview  # ビルド結果をプレビュー
 [keys]
 moveLeft = "ArrowLeft"
 moveRight = "ArrowRight"
-rotateCW = "ArrowUp"
+rotateCW = "KeyX"
 rotateCCW = "KeyZ"
-hold = "KeyC"
+hold = "ShiftLeft"
 
 [timing]
 dasDelay = 167    # 初回移動までの遅延 (ms)
