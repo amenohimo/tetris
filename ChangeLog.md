@@ -10,11 +10,19 @@
 - **左回転 (rotateCCW)**: `KeyZ` のまま変更なし
 - 併せて README.md のキー一覧表、TOML設定例、画面下部の操作ガイド表示も更新
 
+### Fixed
+
+#### 操作ガイド表示がゲーム盤面と重なる
+- **原因**: `#controls-info` が `position: fixed` で常に画面下部に固定表示され、ゲーム盤面と重なっていた
+- **修正**: z-index レイヤリングを導入。`#game-container` に `z-index: 1`、`#controls-info` に `z-index: 0` を設定。controls は盤面の背後に配置され、ゲーム領域の外（左右の余白部分）でのみ見える
+- **併せて**: body に `flex-direction: column` + `overflow-y: auto` を追加し、縦方向レイアウトとスクロールに対応
+
 ### Changed
 - public/config.toml: デフォルトキーを更新
 - src/config/config.ts: DEFAULT_CONFIG のキーを更新
 - index.html: 操作ガイド文字列を更新
 - README.md: 操作一覧表とTOML例を更新
+- src/style.css: レイヤリング構造 + レイアウト調整
 
 ## [1.0.1] - 2026-06-28
 
