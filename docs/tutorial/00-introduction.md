@@ -42,23 +42,23 @@
 
 | 番号 | ファイル名 | タイトル | 学べること |
 |------|-----------|---------|-----------|
-| 00 | 00-introduction.md | はじめに | 教材の目的と構成（今ココ） |
-| 01 | 01-environment-setup.md | 開発環境のセットアップ | Node.js / npm / Vite / TypeScriptのインストールと設定 |
-| 02 | 02-typescript-basics.md | TypeScriptの基礎 | このプロジェクトで使われているTypeScriptの機能 |
-| 03 | 03-project-structure.md | プロジェクト構造 | ファイル分割の設計哲学と依存関係 |
-| 04 | 04-tetris-spec.md | テトリスの仕様 | このゲームが従うルール（SRS / 7-bag / DAS/ARR） |
-| 05 | 05-types-definitions.md | 型定義ファイル | 全モジュールが共有する型の定義と設計意図 |
-| 06 | 06-board-module.md | Boardモジュール | 盤面データ構造、衝突判定、ライン消去 |
-| 07 | 07-piece-module.md | Pieceモジュール | テトリミノ定義、SRS回転、壁蹴り |
-| 08 | 08-randomizer-module.md | Randomizerモジュール | 7-bagランダマイザーとクロージャ |
-| 09 | 09-config-module.md | Configモジュール | TOML設定の読み込みと非同期処理 |
-| 10 | 10-game-engine.md | Gameエンジン | ゲームループ、ステートマシン、スコアリング |
-| 11 | 11-renderer-module.md | Rendererモジュール | Canvas描画、ロジックと描画の分離 |
-| 12 | 12-input-module.md | InputManagerモジュール | DAS/ARR入力処理、キー設定の抽象化 |
-| 13 | 13-main-entry.md | main.tsエントリポイント | 全モジュールの配線、ゲームループ起動 |
-| 14 | 14-assembly.md | アセンブリ | 全モジュールの連携をコードでトレース |
-| 15 | 15-next-steps.md | 次の一歩 | 改造アイデア、参考リソース、実践課題 |
-| 16 | 16-github-pages-deployment.md | GitHub Pages 公開 | GitHub Pages の仕組み、無料ホスティングの利点、デプロイ手順 |
+| 00 | [00-introduction.md](./00-introduction.md) | はじめに | 教材の目的と構成（今ココ） |
+| 01 | [01-environment-setup.md](./01-environment-setup.md) | 開発環境のセットアップ | Node.js / npm / Vite / TypeScriptのインストールと設定 |
+| 02 | [02-typescript-basics.md](./02-typescript-basics.md) | TypeScriptの基礎 | このプロジェクトで使われているTypeScriptの機能 |
+| 03 | [03-project-structure.md](./03-project-structure.md) | プロジェクト構造 | ファイル分割の設計哲学と依存関係 |
+| 04 | [04-tetris-spec.md](./04-tetris-spec.md) | テトリスの仕様 | このゲームが従うルール（SRS / 7-bag / DAS/ARR） |
+| 05 | [05-types-definitions.md](./05-types-definitions.md) | 型定義ファイル | 全モジュールが共有する型の定義と設計意図 |
+| 06 | [06-board-module.md](./06-board-module.md) | Boardモジュール | 盤面データ構造、衝突判定、ライン消去 |
+| 07 | [07-piece-module.md](./07-piece-module.md) | Pieceモジュール | テトリミノ定義、SRS回転、壁蹴り |
+| 08 | [08-randomizer-module.md](./08-randomizer-module.md) | Randomizerモジュール | 7-bagランダマイザーとクロージャ |
+| 09 | [09-config-module.md](./09-config-module.md) | Configモジュール | TOML設定の読み込みと非同期処理 |
+| 10 | [10-game-engine.md](./10-game-engine.md) | Gameエンジン | ゲームループ、ステートマシン、スコアリング |
+| 11 | [11-renderer-module.md](./11-renderer-module.md) | Rendererモジュール | Canvas描画、ロジックと描画の分離 |
+| 12 | [12-input-module.md](./12-input-module.md) | InputManagerモジュール | DAS/ARR入力処理、キー設定の抽象化 |
+| 13 | [13-main-entry.md](./13-main-entry.md) | main.tsエントリポイント | 全モジュールの配線、ゲームループ起動 |
+| 14 | [14-assembly.md](./14-assembly.md) | アセンブリ | 全モジュールの連携をコードでトレース |
+| 15 | [15-next-steps.md](./15-next-steps.md) | 次の一歩 | 改造アイデア、参考リソース、実践課題 |
+| 16 | [16-github-pages-deployment.md](./16-github-pages-deployment.md) | GitHub Pages 公開 | GitHub Pages の仕組み、無料ホスティングの利点、デプロイ手順 |
 
 ## この教材の特徴
 
