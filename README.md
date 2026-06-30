@@ -1,6 +1,6 @@
 # TETRIS
 
-モダンなブラウザテトリス。Vite + TypeScript + Canvas 製。キー配置を TOML で変更可能。
+Vite + TypeScript + Canvas 製のブラウザテトリス。キー配置を TOML で変更可能。
 
 ---
 
@@ -120,6 +120,23 @@ src/
 └── config/
     └── config.ts        # TOMLコンフィグローダー
 ```
+
+---
+
+## GitHub Pages 公開
+
+このプロジェクトは GitHub Pages で公開可能。詳細な手順は `docs/tutorial/16-github-pages-deployment.md` を参照。
+
+### 公開URL
+
+<https://amenohimo.github.io/tetris/>
+
+### 手動デプロイ
+
+\`\`\`bash
+npm run build
+npx gh-pages -d dist
+\`\`\`
 
 ---
 

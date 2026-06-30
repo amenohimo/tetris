@@ -1,5 +1,20 @@
 # ChangeLog
 
+## [1.1.0] - 2026-07-01
+
+### Added
+- **docs/tutorial/16-github-pages-deployment.md**: GitHub Pages 公開手順のチュートリアルを追加。Pages の概要、デプロイ手順（gh-pages パッケージ / GitHub Actions）、トラブルシューティングを収録
+
+### Changed
+- **index.html**: favicon パスを絶対パス→相対パスに変更（GitHub Pages のサブパス対応）
+- **src/config/config.ts**: config.toml の fetch パスを絶対パス→相対パスに変更
+- **tsconfig.json**: `rootDir: "./src"` を追加（TypeScript 6 互換）
+- **README.md**: GitHub Pages 公開セクションを追加。詳細はチュートリアルを参照する形式に変更
+- **リポジトリ可視性**: Private → Public に変更（GitHub Pages 公開のため）
+
+### Infrastructure
+- GitHub Pages 有効化。公開URL: https://amenohimo.github.io/tetris/
+
 ## [1.0.2] - 2026-06-28
 
 ### Changed

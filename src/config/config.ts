@@ -34,7 +34,7 @@ export function normalizeKey(raw: string): string {
 
 export async function loadConfig(): Promise<GameConfig> {
   try {
-    const response = await fetch('/config.toml');
+    const response = await fetch('./config.toml');
     if (!response.ok) {
       console.warn('Config not found, using defaults');
       return DEFAULT_CONFIG;
