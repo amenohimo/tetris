@@ -4,6 +4,7 @@
 
 ### Changed
 - **Hold キー変更**: `ShiftLeft` → `KeyS`
+- **docs/tutorial/16-github-pages-deployment.md**: mainブランチとgh-pagesブランチの分離について図解を追加（よくある誤解への対策）
 
 ## [1.1.1] - 2026-07-01
 
