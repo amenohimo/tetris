@@ -109,47 +109,118 @@ private clearLines(): void {
 
 ### 3. タッチ操作対応（中級）
 
-**目標**: スマホやタブレットでスワイプ操作で遊べるようにする。
+**目標**: スマホやタブレットのタッチパネルで遊べるようにする。スワイプ・フリック・タップによる直感的な操作を実現する。
 
-**学べること**: タッチイベント、モバイル対応、`preventDefault()` の重要性
+**学べること**: タッチイベント（`touchstart`/`touchend`）、スワイプとフリックの判定、マルチタッチ、モバイルブラウザの制御
 
-**改造のヒント**:
+#### 操作設計
+
+キーボードと違い、タッチには「押しっぱなし」の概念がない。以下のような操作体系を最初に決める必要がある。
+
+```
+┌─────────────────┐
+│  左タップ: 左移動    │
+│  右タップ: 右移動    │
+│  下スワイプ: ソフトドロップ  │
+│  下フリック: ハードドロップ  │
+│  中央タップ: 右回転    │
+│  上スワイプ: 左回転    │
+│  長押し: Hold      │
+└─────────────────┘
+```
+
+**タップ / スワイプ / フリックの違い:**
+- **タップ**: 指を置いてすぐ離す。移動距離が小さい。クリック相当
+- **スワイプ**: 指をなぞって離す。**移動距離**で判定
+- **フリック**: 指を勢いよくはじいて離す。**移動速度**で判定
+
+テトリスでは「下になぞる → ソフトドロップ」「下にはじく → ハードドロップ」と割り当てると直感的。
+
+#### 実装上の注意点
+
+| 問題 | 対策 |
+|------|------|
+| **DAS/ARR がタッチに使えない** | キーボードの「押しっぱなし連続移動」はタッチに存在しない。タップ連打またはタッチ用の独自リピート処理を実装する |
+| **ブラウザのデフォルト動作が邪魔** | `touch-action: none` をCSSに設定 + `e.preventDefault()` でスクロール・ピンチズーム・プルリフレッシュを全て潰す |
+| **マルチタッチの競合** | 2本指で同時操作するケース（左移動しながら回転など）を考慮する。`touches` 配列で複数指を管理 |
+| **スワイプとフリックの誤判定** | 「ゆっくり降ろす」と「一気に落とす」の境界が曖昧。`touchend` 時の移動速度（`距離 / 時間`）で閾値を設定し、実機で調整する |
+| **タッチ領域が狭い** | 盤面の左右余白もタップ領域にする。盤面上のタップは回転、盤面外の左右は移動、と領域を分ける |
+| **触覚フィードバックがない** | 押したつもりが押せてない事故が起きやすい。視覚的フィードバック（タップ時に一瞬光るなど）を入れると改善する |
+| **テストが困難** | エミュレータではタッチ速度や同時押しが再現できない。実機必須 |
+
+#### 改造のヒント
+
 ```
 改造箇所: src/input/InputManager.ts
+新規ファイル: src/input/TouchHandler.ts（タッチ処理を分離）
 
-1. InputManager にタッチイベントのハンドラを追加
-2. スワイプの方向と距離を検出
+1. TouchHandler を新規作成し、タッチイベントのハンドラを追加
+2. スワイプの方向と距離、フリックの速度を検出
 3. 対応する GameAction に変換して fireAction
+4. InputManager に TouchHandler を統合。キーボードとタッチの両対応にする
 ```
 
 ```typescript
-// ヒントコード（InputManager に追加するタッチ処理の骨組み）
-private handleTouchStart(e: TouchEvent): void {
-  this.touchStartX = e.touches[0].clientX;
-  this.touchStartY = e.touches[0].clientY;
-  e.preventDefault();  // スクロール防止
-}
+// ヒントコード（TouchHandler の骨組み）
+class TouchHandler {
+  private startX = 0;
+  private startY = 0;
+  private startTime = 0;
+  private fireAction: (action: GameAction) => void;
 
-private handleTouchEnd(e: TouchEvent): void {
-  const dx = e.changedTouches[0].clientX - this.touchStartX;
-  const dy = e.changedTouches[0].clientY - this.touchStartY;
-  const absDx = Math.abs(dx);
-  const absDy = Math.abs(dy);
-
-  if (absDx > absDy) {
-    // 横スワイプ
-    this.fireAction(dx > 0 ? 'moveRight' : 'moveLeft');
-  } else {
-    // 縦スワイプ
-    this.fireAction(dy > 0 ? 'softDrop' : 'hardDrop');
+  constructor(canvas: HTMLCanvasElement, fireAction: (a: GameAction) => void) {
+    this.fireAction = fireAction;
+    canvas.addEventListener('touchstart', e => this.onStart(e), { passive: false });
+    canvas.addEventListener('touchend', e => this.onEnd(e), { passive: false });
   }
-  e.preventDefault();
+
+  private onStart(e: TouchEvent): void {
+    this.startX = e.touches[0].clientX;
+    this.startY = e.touches[0].clientY;
+    this.startTime = Date.now();
+    e.preventDefault();
+  }
+
+  private onEnd(e: TouchEvent): void {
+    const dx = e.changedTouches[0].clientX - this.startX;
+    const dy = e.changedTouches[0].clientY - this.startY;
+    const dt = Date.now() - this.startTime;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < 10) {
+      // タップ: 左右領域で移動、中央で回転
+      const canvasWidth = (e.target as HTMLElement).getBoundingClientRect().width;
+      if (e.changedTouches[0].clientX < canvasWidth * 0.3) {
+        this.fireAction('moveLeft');
+      } else if (e.changedTouches[0].clientX > canvasWidth * 0.7) {
+        this.fireAction('moveRight');
+      } else {
+        this.fireAction('rotateCW');
+      }
+    } else if (Math.abs(dx) > Math.abs(dy)) {
+      // 横スワイプ: 移動
+      this.fireAction(dx > 0 ? 'moveRight' : 'moveLeft');
+    } else {
+      // 縦: 速度でスワイプ/フリック判定
+      const speed = dist / dt;  // px/ms
+      if (dy > 0 && speed > 0.5) {
+        this.fireAction('hardDrop');  // 下フリック
+      } else if (dy > 0) {
+        this.fireAction('softDrop');  // 下スワイプ
+      } else {
+        this.fireAction('rotateCCW'); // 上スワイプ
+      }
+    }
+    e.preventDefault();
+  }
 }
 ```
 
 **考えてみよう**:
-- タップとスワイプの区別をどうつけるか？（ヒント: 移動距離の閾値）
-- マルチタッチで同時操作（左へ移動しながらソフトドロップ）は可能か？
+- タップ・スワイプ・フリックの閾値（`dist < 10`、`speed > 0.5`）はどう決めるべきか？実機で調整する前提で考える
+- マルチタッチで同時操作（左へ移動しながらソフトドロップ）は可能か？`touches` 配列をどう使う？
+- Hold は長押し（`setTimeout` 500ms）と2本指タップのどちらが使いやすいか？
+- 盤面サイズが小さいスマホで、タップ領域（左30% / 中央40% / 右30%）は十分か？
 
 ### 4. アニメーション演出（中級）
 
