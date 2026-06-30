@@ -1,0 +1,18 @@
+[keys]
+moveLeft = "ArrowLeft"
+moveRight = "ArrowRight"
+softDrop = "ArrowDown"
+hardDrop = "Space"
+rotateCW = "KeyX"
+rotateCCW = "KeyZ"
+hold = "ShiftLeft"
+pause = "Escape"
+restart = "KeyR"
+
+[timing]
+dasDelay = 167
+arrDelay = 33
+
+[display]
+blockSize = 30
+showGhost = true
