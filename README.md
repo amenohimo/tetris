@@ -134,9 +134,13 @@ src/
 
 ## GitHub Pages 公開
 
-このプロジェクトは GitHub Pages で公開可能。詳細な手順は `docs/tutorial/16-github-pages-deployment.md` を参照。
+`dist/` を GitHub Pages にデプロイすればブラウザ上で公開できる。手順はチュートリアルを参照。
 
-### 公開URL
+→ [チュートリアル: GitHub Pages に公開しよう](docs/tutorial/16-github-pages-deployment.md)
+
+### 公開例
+
+このリポジトリは以下のURLで公開済み。
 
 <https://amenohimo.github.io/tetris/>
 
