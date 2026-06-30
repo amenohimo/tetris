@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.1.2] - 2026-07-01
+
+### Changed
+- **Hold キー変更**: `ShiftLeft` → `KeyS`
+
+## [1.1.1] - 2026-07-01
+
+### Changed
+- **デフォルトキー配置をホームポジション型に変更**:
+  - 左回転 (rotateCCW): `KeyZ` → `KeyD`
+  - 右回転 (rotateCW): `KeyX` → `KeyF`
+  - 左移動 (moveLeft): `ArrowLeft` → `KeyJ`
+  - ソフトドロップ (softDrop): `ArrowDown` → `KeyK`
+  - 右移動 (moveRight): `ArrowRight` → `KeyL`
+- 併せて README.md、index.html 操作ガイド、public/config.toml、チュートリアルも更新
+
 ## [1.1.0] - 2026-07-01
 
 ### Added

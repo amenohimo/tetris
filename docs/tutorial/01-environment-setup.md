@@ -223,13 +223,13 @@ export default defineConfig({
 
 ```toml
 [keys]
-moveLeft = "ArrowLeft"
-moveRight = "ArrowRight"
-softDrop = "ArrowDown"
+moveLeft = "KeyJ"
+moveRight = "KeyL"
+softDrop = "KeyK"
 hardDrop = "Space"
-rotateCW = "KeyX"
-rotateCCW = "KeyZ"
-hold = "ShiftLeft"
+rotateCW = "KeyF"
+rotateCCW = "KeyD"
+hold = "KeyS"
 pause = "Escape"
 restart = "KeyR"
 

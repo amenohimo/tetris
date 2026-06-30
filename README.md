@@ -53,13 +53,13 @@ npm run preview  # ビルド結果をプレビュー
 
 | 操作 | キー | 変更方法 |
 |------|------|----------|
-| 左移動 | ← (ArrowLeft) | `config.toml` → `moveLeft` |
-| 右移動 | → (ArrowRight) | `config.toml` → `moveRight` |
-| ソフトドロップ | ↓ (ArrowDown) | `config.toml` → `softDrop` |
+| 左移動 | J | `config.toml` → `moveLeft` |
+| 右移動 | L | `config.toml` → `moveRight` |
+| ソフトドロップ | K | `config.toml` → `softDrop` |
 | ハードドロップ | Space | `config.toml` → `hardDrop` |
-| 右回転 | X | `config.toml` → `rotateCW` |
-| 左回転 | Z | `config.toml` → `rotateCCW` |
-| Hold | LShift (左Shift) | `config.toml` → `hold` |
+| 右回転 | F | `config.toml` → `rotateCW` |
+| 左回転 | D | `config.toml` → `rotateCCW` |
+| Hold | S | `config.toml` → `hold` |
 | ポーズ | Escape | `config.toml` → `pause` |
 | リスタート | R | `config.toml` → `restart` |
 
@@ -69,11 +69,12 @@ npm run preview  # ビルド結果をプレビュー
 
 ```toml
 [keys]
-moveLeft = "ArrowLeft"
-moveRight = "ArrowRight"
-rotateCW = "KeyX"
-rotateCCW = "KeyZ"
-hold = "ShiftLeft"
+moveLeft = "KeyJ"
+moveRight = "KeyL"
+softDrop = "KeyK"
+rotateCW = "KeyF"
+rotateCCW = "KeyD"
+hold = "KeyS"
 
 [timing]
 dasDelay = 167    # 初回移動までの遅延 (ms)
