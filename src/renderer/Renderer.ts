@@ -375,49 +375,40 @@ class Renderer {
 
   private drawScore(scoreState: ScoreState): void {
     const panelWidth = this.blockSize * 5;
+    const bs = this.blockSize;
 
-    this.ctx.fillStyle = '#aaa';
-    this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
     this.ctx.textAlign = 'center';
 
-    // Position centered vertically between HOLD box bottom and canvas bottom
-    const startY = this.blockSize * 9;
-    const lineHeight = this.blockSize * 3.2;
-    const valueOffset = this.blockSize * 1.2;
-
-    // SCORE
-    this.ctx.fillText('SCORE', panelWidth / 2, startY);
-    this.ctx.fillStyle = '#888';
-    this.ctx.font = `${this.blockSize * 0.55}px "Courier New", monospace`;
-    this.ctx.fillText(
-      String(scoreState.score),
-      panelWidth / 2,
-      startY + valueOffset
-    );
-
-    // LEVEL
+    // SCORE — prominent
+    const scoreY = bs * 8;
     this.ctx.fillStyle = '#aaa';
-    this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
-    this.ctx.fillText('LEVEL', panelWidth / 2, startY + lineHeight);
-    this.ctx.fillStyle = '#888';
-    this.ctx.font = `${this.blockSize * 0.55}px "Courier New", monospace`;
-    this.ctx.fillText(
-      String(scoreState.level),
-      panelWidth / 2,
-      startY + lineHeight + valueOffset
-    );
+    this.ctx.font = `bold ${bs * 0.55}px "Courier New", monospace`;
+    this.ctx.fillText('SCORE', panelWidth / 2, scoreY);
 
-    // LINES
-    this.ctx.fillStyle = '#aaa';
-    this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
-    this.ctx.fillText('LINES', panelWidth / 2, startY + lineHeight * 2);
+    this.ctx.fillStyle = '#ccc';
+    this.ctx.font = `bold ${bs * 0.7}px "Courier New", monospace`;
+    this.ctx.fillText(String(scoreState.score), panelWidth / 2, scoreY + bs * 1.1);
+
+    // LV / LN — compact row
+    const infoY = scoreY + bs * 3.2;
+
+    // LV (left half)
+    const lvX = panelWidth * 0.35;
+    this.ctx.fillStyle = '#666';
+    this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
+    this.ctx.fillText('LV', lvX - bs * 0.5, infoY);
     this.ctx.fillStyle = '#888';
-    this.ctx.font = `${this.blockSize * 0.55}px "Courier New", monospace`;
-    this.ctx.fillText(
-      String(scoreState.lines),
-      panelWidth / 2,
-      startY + lineHeight * 2 + valueOffset
-    );
+    this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
+    this.ctx.fillText(String(scoreState.level), lvX + bs * 0.4, infoY);
+
+    // LN (right half)
+    const lnX = panelWidth * 0.65;
+    this.ctx.fillStyle = '#666';
+    this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
+    this.ctx.fillText('LN', lnX - bs * 0.5, infoY);
+    this.ctx.fillStyle = '#888';
+    this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
+    this.ctx.fillText(String(scoreState.lines), lnX + bs * 0.4, infoY);
   }
 
   private drawGameOver(): void {
