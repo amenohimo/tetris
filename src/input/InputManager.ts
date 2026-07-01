@@ -101,6 +101,11 @@ export class InputManager {
         this.keyMap.set(code, action);
       }
     }
+
+    // Arrow keys as secondary bindings (alongside configurable primary keys)
+    this.keyCodeToAction.set('ArrowLeft', 'moveLeft');
+    this.keyCodeToAction.set('ArrowRight', 'moveRight');
+    this.keyCodeToAction.set('ArrowDown', 'softDrop');
   }
 
   private handleKeyDown(e: KeyboardEvent): void {

@@ -392,22 +392,41 @@ class Renderer {
     // LV / LN — stacked below SCORE
     const infoY = scoreY + bs * 3.2;
     const lineH = bs * 1.4;
-    const labelX = panelWidth * 0.35;
-    const valueX = labelX + bs * 0.6;
+    const tightGap = 2;
 
-    this.ctx.fillStyle = '#666';
+    this.ctx.textAlign = 'left';
+
+    // LV
     this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
-    this.ctx.fillText('LV', labelX, infoY);
+    const lvLabelW = this.ctx.measureText('LV').width;
+    this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
+    const lvValueW = this.ctx.measureText(String(scoreState.level)).width;
+    const lvGroupW = lvLabelW + tightGap + lvValueW;
+    const lvStartX = (panelWidth - lvGroupW) / 2;
+
+    this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
+    this.ctx.fillStyle = '#666';
+    this.ctx.fillText('LV', lvStartX, infoY);
     this.ctx.fillStyle = '#888';
     this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
-    this.ctx.fillText(String(scoreState.level), valueX, infoY);
+    this.ctx.fillText(String(scoreState.level), lvStartX + lvLabelW + tightGap, infoY);
 
-    this.ctx.fillStyle = '#666';
+    // LN
     this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
-    this.ctx.fillText('LN', labelX, infoY + lineH);
+    const lnLabelW = this.ctx.measureText('LN').width;
+    this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
+    const lnValueW = this.ctx.measureText(String(scoreState.lines)).width;
+    const lnGroupW = lnLabelW + tightGap + lnValueW;
+    const lnStartX = (panelWidth - lnGroupW) / 2;
+
+    this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
+    this.ctx.fillStyle = '#666';
+    this.ctx.fillText('LN', lnStartX, infoY + lineH);
     this.ctx.fillStyle = '#888';
     this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
-    this.ctx.fillText(String(scoreState.lines), valueX, infoY + lineH);
+    this.ctx.fillText(String(scoreState.lines), lnStartX + lnLabelW + tightGap, infoY + lineH);
+
+    this.ctx.textAlign = 'center';
   }
 
   private drawGameOver(): void {
