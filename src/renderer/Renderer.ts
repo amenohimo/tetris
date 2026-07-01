@@ -637,18 +637,18 @@ class Renderer {
       'Tap to Hard Drop', textColor, accentColor
     );
 
-    // 4. CCW (left board edge)
+    // 4. CCW (left panel, below Hold)
     this.drawTutorialBox(
-      boardLeft - bs * 1.5, bs * 7,
-      bs * 1.2, bs * 6,
-      'Tap\nCCW', textColor, accentColor
+      bs * 0.3, bs * 7,
+      PANEL_WIDTH - bs * 0.6, BOARD_ROWS * bs - bs * 7 - bs * 0.3,
+      'Tap CCW', textColor, accentColor
     );
 
-    // 5. CW (right board edge)
+    // 5. CW (right panel, below Pause)
     this.drawTutorialBox(
-      boardRight, bs * 7,
-      bs * 1.2, bs * 6,
-      'Tap\nCW', textColor, accentColor
+      boardRight + bs * 0.3, bs * 7,
+      PANEL_WIDTH - bs * 0.6, BOARD_ROWS * bs - bs * 7 - bs * 0.3,
+      'Tap CW', textColor, accentColor
     );
 
     this.ctx.restore();
