@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
+import { readFileSync } from 'fs';
 import { execSync } from 'child_process';
 
-const pkg = JSON.parse(execSync('node -e "process.stdout.write(JSON.stringify(require(\'./package.json\')))"', { encoding: 'utf-8' }));
+const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 const gitHash = execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
 
 export default defineConfig({
