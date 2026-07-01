@@ -387,8 +387,8 @@ class Renderer {
 
     // SCORE
     this.ctx.fillText('SCORE', panelWidth / 2, startY);
-    this.ctx.fillStyle = '#fff';
-    this.ctx.font = `bold ${this.blockSize * 0.8}px "Courier New", monospace`;
+    this.ctx.fillStyle = '#888';
+    this.ctx.font = `${this.blockSize * 0.55}px "Courier New", monospace`;
     this.ctx.fillText(
       String(scoreState.score).padStart(8, '0'),
       panelWidth / 2,
@@ -399,8 +399,8 @@ class Renderer {
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
     this.ctx.fillText('LEVEL', panelWidth / 2, startY + lineHeight);
-    this.ctx.fillStyle = '#fff';
-    this.ctx.font = `bold ${this.blockSize * 0.8}px "Courier New", monospace`;
+    this.ctx.fillStyle = '#888';
+    this.ctx.font = `${this.blockSize * 0.55}px "Courier New", monospace`;
     this.ctx.fillText(
       String(scoreState.level),
       panelWidth / 2,
@@ -411,8 +411,8 @@ class Renderer {
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
     this.ctx.fillText('LINES', panelWidth / 2, startY + lineHeight * 2);
-    this.ctx.fillStyle = '#fff';
-    this.ctx.font = `bold ${this.blockSize * 0.8}px "Courier New", monospace`;
+    this.ctx.fillStyle = '#888';
+    this.ctx.font = `${this.blockSize * 0.55}px "Courier New", monospace`;
     this.ctx.fillText(
       String(scoreState.lines),
       panelWidth / 2,
