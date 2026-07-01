@@ -213,6 +213,12 @@ class Game {
       this.updateGhost();
     }
 
+    // Reset lock state — new piece should not inherit previous piece's lock state
+    this.isLocking = false;
+    this.lockDelay = 0;
+    this.lockMoves = 0;
+    this.dropTimer = 0;
+
     this.holdInfo.usedThisTurn = true;
   }
 
