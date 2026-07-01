@@ -627,7 +627,7 @@ class Renderer {
     this.drawTutorialBox(
       boardRight + bs * 0.3, bs * 0.3,
       PANEL_WIDTH - bs * 0.6, bs * 6,
-      'PAUSE\nEsc\n\nRESTART\nEsc x 2', textColor, accentColor
+      'PAUSE\nEsc\n\nRESTART\nDouble-Tap / R', textColor, accentColor
     );
 
     // 3. Hard Drop (board bottom 2 rows)
