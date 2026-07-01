@@ -100,28 +100,29 @@ class Renderer {
     this.ctx.fillStyle = '#0a0a1a';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // Board area background
-    this.ctx.fillStyle = '#0f0f2a';
-    this.ctx.fillRect(PANEL_WIDTH, 0, BOARD_COLS * this.blockSize, BOARD_ROWS * this.blockSize);
-
-    // Draw grid lines
-    this.drawGrid();
-
-    // Draw board cells
-    this.drawBoard(board);
-
-    // Draw ghost piece
-    if (ghostPosition && currentPiece && this.config.display.showGhost) {
-      this.drawGhost(currentPiece, ghostPosition);
-    }
-
-    // Draw current piece
-    if (currentPiece) {
-      this.drawPiece(currentPiece);
-    }
-
-    // Draw side panels (only during active game states)
+    // Game content (only during active states)
     if (state !== 'idle' && state !== 'gameOver') {
+      // Board area background
+      this.ctx.fillStyle = '#0f0f2a';
+      this.ctx.fillRect(PANEL_WIDTH, 0, BOARD_COLS * this.blockSize, BOARD_ROWS * this.blockSize);
+
+      // Draw grid lines
+      this.drawGrid();
+
+      // Draw board cells
+      this.drawBoard(board);
+
+      // Draw ghost piece
+      if (ghostPosition && currentPiece && this.config.display.showGhost) {
+        this.drawGhost(currentPiece, ghostPosition);
+      }
+
+      // Draw current piece
+      if (currentPiece) {
+        this.drawPiece(currentPiece);
+      }
+
+      // Draw side panels
       this.drawHold(holdInfo);
       this.drawNext(nextQueue);
       this.drawScore(scoreState);
