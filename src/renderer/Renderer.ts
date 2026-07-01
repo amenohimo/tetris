@@ -620,35 +620,35 @@ class Renderer {
     // 1. Hold (left panel HOLD box)
     this.drawTutorialBox(
       boxX, boxY, boxSize, boxSize,
-      'HOLD\n  S', textColor, accentColor
+      'HOLD\nS', textColor, accentColor
     );
 
     // 2. Pause/Restart (top-right panel)
     this.drawTutorialBox(
       boardRight + bs * 0.3, bs * 0.3,
       PANEL_WIDTH - bs * 0.6, bs * 6,
-      'PAUSE\n  Esc\n\nRESTART\n  Esc x 2', textColor, accentColor
+      'PAUSE\nEsc\n\nRESTART\nEsc x 2', textColor, accentColor
     );
 
     // 3. Hard Drop (board bottom 2 rows)
     this.drawTutorialBox(
       boardLeft, (BOARD_ROWS - 2) * bs,
       BOARD_COLS * bs, bs * 2,
-      'HARD DROP\n  Space', textColor, accentColor
+      'HARD DROP\nSpace', textColor, accentColor
     );
 
     // 4. CCW (left panel, below Hold)
     this.drawTutorialBox(
       bs * 0.3, bs * 7,
       PANEL_WIDTH - bs * 0.6, BOARD_ROWS * bs - bs * 7 - bs * 0.3,
-      'CCW\n  D', textColor, accentColor
+      'CCW\nD', textColor, accentColor
     );
 
     // 5. CW (right panel, below Pause)
     this.drawTutorialBox(
       boardRight + bs * 0.3, bs * 7,
       PANEL_WIDTH - bs * 0.6, BOARD_ROWS * bs - bs * 7 - bs * 0.3,
-      'CW\n  F', textColor, accentColor
+      'CW\nF', textColor, accentColor
     );
 
     this.ctx.restore();
