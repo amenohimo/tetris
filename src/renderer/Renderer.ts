@@ -59,6 +59,7 @@ class Renderer {
   private canvas: HTMLCanvasElement;
   private blockSize: number;
   private config: GameConfig;
+  private tutorialStartTime = 0;
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
     this.canvas = canvas;
@@ -123,6 +124,11 @@ class Renderer {
     this.drawHold(holdInfo);
     this.drawNext(nextQueue);
     this.drawScore(scoreState);
+
+    // Draw tutorial overlay (first-time only)
+    if (this.tutorialStartTime > 0) {
+      this.drawTutorial();
+    }
 
     // Draw state overlays
     switch (state) {
@@ -592,6 +598,116 @@ class Renderer {
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16),
     };
+  }
+
+  startTutorial(): void {
+    this.tutorialStartTime = performance.now();
+  }
+
+  private drawTutorial(): void {
+    const elapsed = performance.now() - this.tutorialStartTime;
+
+    let alpha: number;
+    if (elapsed < 300) {
+      alpha = elapsed / 300;
+    } else if (elapsed < 2800) {
+      alpha = 1;
+    } else if (elapsed < 3300) {
+      alpha = 1 - (elapsed - 2800) / 500;
+    } else {
+      this.tutorialStartTime = 0;
+      return;
+    }
+
+    const bs = this.blockSize;
+    const PANEL_WIDTH = bs * 5;
+    const previewCellSize = bs * 0.8;
+    const boxSize = previewCellSize * 5;
+    const boxX = (PANEL_WIDTH - boxSize) / 2;
+    const boxY = bs * 2.5;
+    const boardLeft = PANEL_WIDTH;
+    const boardRight = PANEL_WIDTH + BOARD_COLS * bs;
+
+    const accentColor = '#00f0f0';
+    const textColor = '#aaa';
+
+    this.ctx.save();
+    this.ctx.globalAlpha = alpha;
+
+    // Glow effect
+    this.ctx.shadowColor = accentColor;
+    this.ctx.shadowBlur = 8;
+
+    // 1. Hold (left panel HOLD box)
+    this.drawTutorialBox(
+      boxX, boxY + bs * 0.3, boxSize, boxSize * 0.5,
+      'Tap to Hold', textColor, accentColor
+    );
+
+    // 2. Pause/Restart (top-right panel)
+    this.drawTutorialBox(
+      boardRight + bs * 0.3, bs * 0.3,
+      PANEL_WIDTH - bs * 0.6, bs * 6,
+      'Tap to Pause\nDouble-tap to Restart', textColor, accentColor
+    );
+
+    // 3. Hard Drop (board bottom 2 rows)
+    this.drawTutorialBox(
+      boardLeft + bs * 0.3, (BOARD_ROWS - 1.5) * bs,
+      BOARD_COLS * bs - bs * 0.6, bs * 1.2,
+      'Tap to Hard Drop', textColor, accentColor
+    );
+
+    // 4. CCW (left board edge)
+    this.drawTutorialBox(
+      boardLeft - bs * 1.5, bs * 7,
+      bs * 1.2, bs * 6,
+      'Tap\nCCW', textColor, accentColor
+    );
+
+    // 5. CW (right board edge)
+    this.drawTutorialBox(
+      boardRight, bs * 7,
+      bs * 1.2, bs * 6,
+      'Tap\nCW', textColor, accentColor
+    );
+
+    this.ctx.restore();
+  }
+
+  private drawTutorialBox(
+    x: number, y: number, w: number, h: number,
+    text: string, textColor: string, borderColor: string
+  ): void {
+    const radius = 4;
+
+    this.ctx.beginPath();
+    this.ctx.roundRect(x, y, w, h, radius);
+
+    // Fill
+    this.ctx.fillStyle = 'rgba(10, 10, 26, 0.85)';
+    this.ctx.fill();
+
+    // Stroke
+    this.ctx.strokeStyle = borderColor;
+    this.ctx.lineWidth = 1;
+    this.ctx.stroke();
+
+    // Text (centered)
+    this.ctx.shadowBlur = 0;
+    this.ctx.fillStyle = textColor;
+    this.ctx.font = `bold ${this.blockSize * 0.45}px "Courier New", monospace`;
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+
+    const lines = text.split('\n');
+    const lineHeight = this.blockSize * 0.65;
+    const totalHeight = lines.length * lineHeight;
+    const startY = y + h / 2 - totalHeight / 2 + lineHeight / 2;
+
+    for (let i = 0; i < lines.length; i++) {
+      this.ctx.fillText(lines[i], x + w / 2, startY + i * lineHeight);
+    }
   }
 
   private rgbToHex(r: number, g: number, b: number): string {
