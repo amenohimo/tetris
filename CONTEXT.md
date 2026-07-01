@@ -24,12 +24,12 @@
 
 | ゾーン | 領域 | 操作 | 備考 |
 |--------|------|------|------|
-| Pause | 右上隅、NEXTパネル上端。幅は右パネル全体、高さは blockSize*2 | タップ | 右回転ゾーンより優先。playing時のみ反応 |
+| Pause | 右上隅、NEXTパネル上端。幅は右パネル全体、高さは HOLD ボックスと同じ blockSize*6.5 | タップ | 右回転ゾーンより優先。playing時のみ反応 |
 | Hold | 左パネル内のHOLD表示ボックス領域 | タップ | 左回転ゾーンより優先 |
 | Hard Drop | 盤面の下2行（canvas Y: 18*blockSize〜20*blockSize）＋キャンバス外の下部領域 | タップ | |
 | Soft Drop + Move | 盤面の上18行（canvas Y: 0〜18*blockSize） | 縦ドラッグ: softDrop、横ドラッグ: moveLeft/moveRight | touchmove の dx/dy を分解。dy → softDrop、dx → 左右移動 |
-| CCW | 左パネル全体（Holdエリアを除く） | タップ | |
-| CW | 右パネル全体（Pauseエリアを除く） | タップ | |
+| CCW | 左パネル全体（Holdエリアを除く） | タップ | Holdエリア下端（blockSize*6.5）以降 |
+| CW | 右パネル全体（Pauseエリアを除く） | タップ | Pauseエリア下端（blockSize*6.5）以降 |
 
 ### ゾーン座標（blockSize=bs の場合）
 
@@ -42,10 +42,10 @@ canvas 全体: width = bs*5 + bs*10 + bs*5 = 20*bs, height = 20*bs
 
 ソフト+移動: x: 5*bs〜15*bs,    y: 0〜18*bs
 ハード:      x: 5*bs〜15*bs,    y: 18*bs〜20*bs  + y > 20*bs（枠外）
-Pause:       x: 15*bs〜20*bs,   y: 0〜2*bs
-Hold:        左パネル内 HOLD 表示ボックス（boxX〜boxX+boxSize, boxY〜boxY+boxSize）
-CCW:         左パネル全体（Holdエリアを除く）
-CW:          右パネル全体（Pauseエリアを除く）
+Pause:       x: 15*bs〜20*bs,   y: 0〜6.5*bs
+Hold:        左パネル内 HOLD 表示ボックス（boxX〜boxX+boxSize, boxY=2.5*bs, boxY+boxSize=6.5*bs）
+CCW:         左パネル全体（y: 6.5*bs 以降）
+CW:          右パネル全体（y: 6.5*bs 以降）
 ```
 
 ### ソフトドロップ / 横移動のレート
@@ -138,4 +138,4 @@ touchHandler.attach();
 - SCORE, LEVEL, LINES: HOLDの下（左側）
 - NEXT: 右上（HOLDと同じ高さで揃う）
 - Board: 中央
-- Pause/Restart ゾーン: 右パネル上端 blockSize*2 の領域。通常は非表示。初回チュートリアル時のみ点線枠表示
+- Pause/Restart ゾーン: 右パネル上端 blockSize*6.5 の領域。HOLD ボックスと同じ高さ。通常は非表示。初回チュートリアル時のみ点線枠表示
