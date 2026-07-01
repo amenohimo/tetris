@@ -177,7 +177,10 @@ class Game {
       this.holdInfo.type = currentType;
       this.currentPiece = null;
       this.ghostPosition = null;
-      this.spawnPiece();
+      if (!this.spawnPiece()) {
+        this.state = 'gameOver';
+        return;
+      }
     } else {
       // Can't hold same piece type twice in a row
       if (this.holdInfo.type === currentType) return;
