@@ -674,18 +674,41 @@ class Renderer {
 
     // Text (centered)
     this.ctx.shadowBlur = 0;
-    this.ctx.fillStyle = textColor;
-    this.ctx.font = `bold ${this.blockSize * 0.45}px "Courier New", monospace`;
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'middle';
 
     const lines = text.split('\n');
-    const lineHeight = this.blockSize * 0.65;
-    const totalHeight = lines.length * lineHeight;
-    const startY = y + h / 2 - totalHeight / 2 + lineHeight / 2;
+    const actionHeight = this.blockSize * 0.65;
+    const keyHeight = this.blockSize * 0.5;
+
+    // Calculate total height accounting for style-specific line heights
+    let totalHeight = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].length === 0) {
+        totalHeight += actionHeight * 0.5; // spacer
+      } else {
+        totalHeight += (i % 2 === 0) ? actionHeight : keyHeight;
+      }
+    }
+
+    let currentY = y + h / 2 - totalHeight / 2;
+    const evenColor = textColor;
+    const oddColor = '#666';
 
     for (let i = 0; i < lines.length; i++) {
-      this.ctx.fillText(lines[i], x + w / 2, startY + i * lineHeight);
+      if (lines[i].length === 0) {
+        currentY += actionHeight * 0.5;
+        continue;
+      }
+
+      const isAction = i % 2 === 0;
+      this.ctx.font = isAction
+        ? `bold ${this.blockSize * 0.48}px "Courier New", monospace`
+        : `${this.blockSize * 0.38}px "Courier New", monospace`;
+      this.ctx.fillStyle = isAction ? evenColor : oddColor;
+
+      this.ctx.fillText(lines[i], x + w / 2, currentY + (isAction ? actionHeight : keyHeight) / 2);
+      currentY += isAction ? actionHeight : keyHeight;
     }
   }
 
