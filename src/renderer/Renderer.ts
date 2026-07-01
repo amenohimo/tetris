@@ -389,26 +389,25 @@ class Renderer {
     this.ctx.font = `bold ${bs * 0.7}px "Courier New", monospace`;
     this.ctx.fillText(String(scoreState.score), panelWidth / 2, scoreY + bs * 1.1);
 
-    // LV / LN — compact row
+    // LV / LN — stacked below SCORE
     const infoY = scoreY + bs * 3.2;
+    const lineH = bs * 1.4;
+    const labelX = panelWidth * 0.35;
+    const valueX = panelWidth * 0.35 + bs * 1.0;
 
-    // LV (left half)
-    const lvX = panelWidth * 0.35;
     this.ctx.fillStyle = '#666';
     this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
-    this.ctx.fillText('LV', lvX - bs * 0.5, infoY);
+    this.ctx.fillText('LV', labelX, infoY);
     this.ctx.fillStyle = '#888';
     this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
-    this.ctx.fillText(String(scoreState.level), lvX + bs * 0.4, infoY);
+    this.ctx.fillText(String(scoreState.level), valueX, infoY);
 
-    // LN (right half)
-    const lnX = panelWidth * 0.65;
     this.ctx.fillStyle = '#666';
     this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
-    this.ctx.fillText('LN', lnX - bs * 0.5, infoY);
+    this.ctx.fillText('LN', labelX, infoY + lineH);
     this.ctx.fillStyle = '#888';
     this.ctx.font = `${bs * 0.5}px "Courier New", monospace`;
-    this.ctx.fillText(String(scoreState.lines), lnX + bs * 0.4, infoY);
+    this.ctx.fillText(String(scoreState.lines), valueX, infoY + lineH);
   }
 
   private drawGameOver(): void {
