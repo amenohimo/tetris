@@ -27,6 +27,8 @@ class Game {
   private lockDelay: number;
   private lockMoves: number;
   private isLocking: boolean;
+  private trace: string[] = [];
+  private traceFrame = 0;
 
   constructor(config: GameConfig) {
     this.config = config;
@@ -61,7 +63,7 @@ class Game {
     if (this.spawnPiece()) {
       this.state = 'playing';
     } else {
-      this.state = 'gameOver';
+      this.goGameOver('start: spawnPiece failed');
     }
   }
 
@@ -71,10 +73,11 @@ class Game {
 
   update(deltaTime: number): void {
     if (this.state !== 'playing') return;
+    this.traceFrame++;
 
     if (!this.currentPiece) {
       if (!this.spawnPiece()) {
-        this.state = 'gameOver';
+        this.goGameOver('update: currentPiece null, spawnPiece failed');
         return;
       }
     }
@@ -103,11 +106,15 @@ class Game {
   }
 
   moveLeft(): boolean {
-    return this.tryMove(-1, 0);
+    const moved = this.tryMove(-1, 0);
+    if (moved) this.logTrace('←', `${this.currentPiece!.type} (${this.currentPiece!.position.x},${this.currentPiece!.position.y})`);
+    return moved;
   }
 
   moveRight(): boolean {
-    return this.tryMove(1, 0);
+    const moved = this.tryMove(1, 0);
+    if (moved) this.logTrace('→', `${this.currentPiece!.type} (${this.currentPiece!.position.x},${this.currentPiece!.position.y})`);
+    return moved;
   }
 
   softDrop(): boolean {
@@ -117,6 +124,7 @@ class Game {
     if (moved) {
       this.scoreState.score += 1;
       this.dropTimer = 0;
+      this.logTrace('↓', `${this.currentPiece!.type} (${this.currentPiece!.position.x},${this.currentPiece!.position.y})`);
     }
     return moved;
   }
@@ -133,12 +141,16 @@ class Game {
     const rowsDropped = ghost.y - this.currentPiece.position.y;
     this.scoreState.score += rowsDropped * 2;
 
+    const pieceType = this.currentPiece.type;
+    const fromY = this.currentPiece.position.y;
+
     this.currentPiece = {
       ...this.currentPiece,
       position: ghost,
     };
     this.updateGhost();
 
+    this.logTrace('HARD', `${pieceType} y:${fromY}→${ghost.y} (${rowsDropped}r)`);
     this.lockCurrentPiece();
   }
 
@@ -177,8 +189,9 @@ class Game {
       this.holdInfo.type = currentType;
       this.currentPiece = null;
       this.ghostPosition = null;
+      this.logTrace('HOLD', `${currentType} (first, spawning)`);
       if (!this.spawnPiece()) {
-        this.state = 'gameOver';
+        this.goGameOver('hold[1st]: spawnPiece after hold failed');
         return;
       }
     } else {
@@ -190,8 +203,9 @@ class Game {
 
       // Create fresh piece of the previously held type
       const newPiece = createPiece(heldType);
+      this.logTrace('HOLD', `${currentType} / ${heldType} (swapped)`);
       if (!isValidPosition(newPiece.shape, newPiece.position, this.board)) {
-        this.state = 'gameOver';
+        this.goGameOver(`hold[swap]: ${heldType} spawn position invalid`);
         return;
       }
 
@@ -217,11 +231,13 @@ class Game {
     const piece = createPiece(type);
 
     if (!isValidPosition(piece.shape, piece.position, this.board)) {
+      this.logTrace('SPAWN', `${type} FAIL at (${piece.position.x},${piece.position.y})`);
       return false;
     }
 
     this.currentPiece = piece;
     this.updateGhost();
+    this.logTrace('SPAWN', `${type} at (${piece.position.x},${piece.position.y})`);
     return true;
   }
 
@@ -252,12 +268,18 @@ class Game {
     this.lockDelay = 0;
     this.lockMoves = 0;
     this.isLocking = false;
+
+    const lockedType = this.currentPiece.type;
+    const lockedPos = { ...this.currentPiece.position };
     this.currentPiece = null;
     this.ghostPosition = null;
 
     // Spawn next piece
     if (!this.spawnPiece()) {
-      this.state = 'gameOver';
+      this.logTrace('LOCK', `${lockedType} at (${lockedPos.x},${lockedPos.y}) lines=${linesCleared} FAIL`);
+      this.goGameOver('lock: spawnPiece after lock failed');
+    } else {
+      this.logTrace('LOCK', `${lockedType} at (${lockedPos.x},${lockedPos.y}) lines=${linesCleared}`);
     }
   }
 
@@ -299,6 +321,23 @@ class Game {
       return true;
     }
     return false;
+  }
+
+  private logTrace(action: string, detail: string = ''): void {
+    this.trace.push(`#${String(this.traceFrame).padStart(4)} ${action.padEnd(10)} ${detail}`);
+    if (this.trace.length > 30) this.trace.shift();
+  }
+
+  private dumpTrace(): void {
+    console.log('=== GAME OVER TRACE ===');
+    for (const line of this.trace) console.log(line);
+    console.log('=== END TRACE (copy above) ===');
+  }
+
+  private goGameOver(reason: string): void {
+    this.logTrace('GAMEOVER', reason);
+    this.dumpTrace();
+    this.state = 'gameOver';
   }
 
   /** Gravity-driven downward movement (does not extend lock delay). */

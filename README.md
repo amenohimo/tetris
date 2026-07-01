@@ -23,6 +23,7 @@ Vite + TypeScript + Canvas 製のブラウザテトリス。キー配置を TOML
 | レベル進行 | 10ライン消去ごとにレベルアップ。レベルに応じて落下速度が上昇 |
 | Lock Delay | 接地後500msの移動猶予。移動/回転でリセット（最大15回） |
 | DAS/ARR入力 | キー押しっぱなし時の自動連続移動（設定変更可能） |
+| タッチ操作 | スマートフォン・タブレット対応。盤面基準のゾーン分けで精密操作（Hard Drop / Soft Drop＋横移動 / 回転 / Hold / Pause） |
 | TOMLキー設定 | `public/config.toml` を編集して全操作のキーバインドを変更可能 |
 | ダークテーマUI | 3D表現のセル描画、グローエフェクト、グラデーションバックグラウンド |
 
@@ -53,9 +54,9 @@ npm run preview  # ビルド結果をプレビュー
 
 | 操作 | キー | 変更方法 |
 |------|------|----------|
-| 左移動 | J | `config.toml` → `moveLeft` |
-| 右移動 | L | `config.toml` → `moveRight` |
-| ソフトドロップ | K | `config.toml` → `softDrop` |
+| 左移動 | J / ← | `config.toml` → `moveLeft` |
+| 右移動 | L / → | `config.toml` → `moveRight` |
+| ソフトドロップ | K / ↓ | `config.toml` → `softDrop` |
 | ハードドロップ | Space | `config.toml` → `hardDrop` |
 | 右回転 | F | `config.toml` → `rotateCW` |
 | 左回転 | D | `config.toml` → `rotateCCW` |
