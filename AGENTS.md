@@ -22,6 +22,15 @@ v1.2.0-a1b2c3d
 2. **`ChangeLog.md`** — 新しいバージョンセクションに変更内容を追記
 3. **`README.md`** — バージョンに依存する記述があれば更新
 
+### プレコミットフック
+
+`.git/hooks/pre-commit` が以下をチェックする：
+
+- `src/` に変更があるのに `package.json` の `version` が前回コミットから変わっていない場合、**警告**を表示する（ブロックはしない）
+- コミットを強行するには同じ `git commit` を再度実行する
+
+キリのいいタイミングで `npm version patch`（または `minor` / `major`）を実行すること。このコマンドは `package.json` のバージョンを自動で bump し、git commit と tag を作成する。
+
 ### ChangeLog 記述ルール
 
 - `## [X.Y.Z] - YYYY-MM-DD` の形式
