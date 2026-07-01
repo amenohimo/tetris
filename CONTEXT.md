@@ -62,7 +62,7 @@ CW:          右パネル全体（Pauseエリアを除く）
 | 状態 | 画面どこでもタップ | 右上タップ | 右上タップ（監視中） | ゾーン別操作（playing時のみ） |
 |------|-------------|-----------|------------------|---------------------------|
 | idle | Start | Start | — | — |
-| playing | — | Pause | — | ソフト/ハード/回転/Hold/左右移動 |
+| playing | — | Pause | Restart | ソフト/ハード/回転/Hold/左右移動 |
 | paused | Resume | Resume | Restart | — |
 | gameOver | Restart | Restart | — | — |
 
