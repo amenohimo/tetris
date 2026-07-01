@@ -93,8 +93,9 @@ GitHub Pages で公開するサイトは、`https://<ユーザー名>.github.io/
 # 4. "Create repository" をクリック
 
 # 5. ターミナルでこのプロジェクトのフォルダに移動
-#    例: Windows の場合 → cd O:\_Programs\_tools\tetris\main
-#    例: Mac/Linux の場合 → cd ~/projects/tetris
+#    例: Windows（PowerShell）の場合 → cd ~\project\tetris\main
+#    例: Windows（コマンドプロンプト）の場合 → cd %USERPROFILE%\project\tetris\main
+#    例: Mac/Linux の場合 → cd ~/project/tetris/main
 cd /path/to/tetris
 
 # 6. 以下のコマンドを順に実行

@@ -65,11 +65,22 @@ npm --version
 
 ### 2. プロジェクトのセットアップ
 
-プロジェクトのフォルダに移動します。
+プロジェクトのフォルダに移動します。このチュートリアルでは、ホームディレクトリ直下の `project/tetris/main` にプロジェクトを配置している前提で説明します。`main` というフォルダ名には理由があります。後述する git worktree という機能を使うと、`main`、`fix1`、`future` のようにブランチごとにフォルダを並べて作業できます。その運用を想定し、あえてプロジェクト名の下に1階層作っています。
+
+OS別の移動コマンドは以下の通りです。
 
 ```bash
-cd O:\_Programs\_tools\tetris\main
+# Windows（PowerShell）:
+cd ~\project\tetris\main
+
+# Windows（コマンドプロンプト）:
+cd %USERPROFILE%\project\tetris\main
+
+# Mac / Linux:
+cd ~/project/tetris/main
 ```
+
+> `~`（チルダ）は「ホームディレクトリ」を表す省略記号です。Windows では `C:\Users\（ユーザー名）`、Mac では `/Users/（ユーザー名）`、Linux では `/home/（ユーザー名）` を指します。
 
 次に、依存関係（ライブラリ）をインストールします。
 
@@ -108,7 +119,7 @@ npm run dev
 
 `package.json` はプロジェクトの「卒業アルバム」のようなファイルです。プロジェクトの名前やバージョン、使っているライブラリの一覧が書かれています。
 
-実際のファイル（`O:\_Programs\_tools\tetris\main\package.json`）を見てみましょう：
+実際のファイル（プロジェクト直下の `package.json`）を見てみましょう：
 
 ```json
 {
@@ -161,7 +172,7 @@ npm run dev
 
 `tsconfig.json` はTypeScriptコンパイラ（`tsc`）の設定ファイルです。TypeScriptがどう振る舞うかを指定します。
 
-実際のファイル（`O:\_Programs\_tools\tetris\main\tsconfig.json`）：
+実際のファイル（プロジェクト直下の `tsconfig.json`）：
 
 ```json
 {
