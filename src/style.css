@@ -49,6 +49,7 @@ body {
   color: rgba(255, 255, 255, 0.3);
   line-height: 1.8;
   letter-spacing: 0.5px;
+  user-select: none;
 }
 
 #controls-info code {

@@ -101,11 +101,11 @@ paused → 右上タップ → resume（即時）→ 200ms監視開始
 
 | 表示位置 | 内容 | テキスト |
 |---------|------|---------|
-| 右上（NEXTパネル上部、Pauseゾーン） | Pause / Restart | 「Tap to Pause」「Double-tap to Restart」 |
-| 左パネル（HOLD表示ボックス） | Hold | 「Tap to Hold」 |
-| 盤面左端 | 左回転 | 「Tap CCW」 |
-| 盤面右端 | 右回転 | 「Tap CW」 |
-| 盤面下部（下2行） | Hard Drop | 「Tap to Hard Drop」 |
+| 右上（NEXTパネル上部、Pauseゾーン） | Pause / Restart | 「PAUSE    Esc」「RESTART    Esc × 2」 |
+| 左パネル（HOLD表示ボックス） | Hold | 「HOLD    S」 |
+| 盤面左端 | 左回転 | 「CCW    D」 |
+| 盤面右端 | 右回転 | 「CW    F」 |
+| 盤面下部（下2行） | Hard Drop | 「HARD DROP    Space」 |
 
 3秒経過後、全表示はスムーズにフェードアウト。以降は視覚的ノイズゼロ。
 
