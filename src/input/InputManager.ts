@@ -138,7 +138,7 @@ export class InputManager {
     }
   }
 
-  private fireAction(action: GameAction): boolean {
+  public fireAction(action: GameAction): boolean {
     const handler = this.actionHandlers.get(action);
     if (handler == null) return false;
     const result = handler();

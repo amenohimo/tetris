@@ -444,7 +444,7 @@ class Renderer {
     this.ctx.fillStyle = '#ccc';
     this.ctx.font = `${this.blockSize * 1}px "Courier New", monospace`;
     this.ctx.fillText(
-      'Press ENTER to restart',
+      'Press ENTER or Tap to restart',
       this.canvas.width / 2,
       this.canvas.height / 2 + this.blockSize * 2
     );
@@ -509,7 +509,7 @@ class Renderer {
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `${this.blockSize * 1}px "Courier New", monospace`;
     this.ctx.fillText(
-      'Press ENTER to start',
+      'Press ENTER or Tap to start',
       this.canvas.width / 2,
       this.canvas.height / 2 + this.blockSize * 2
     );

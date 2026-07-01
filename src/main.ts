@@ -1,6 +1,7 @@
 import { Game } from './game/Game';
 import { Renderer } from './renderer/Renderer';
 import { InputManager } from './input/InputManager';
+import { TouchHandler } from './input/TouchHandler';
 import { loadConfig } from './config/config';
 
 async function main(): Promise<void> {
@@ -24,11 +25,17 @@ async function main(): Promise<void> {
   input.on('pause', () => game.togglePause());
   input.on('restart', () => game.restart());
 
+  // Touch handler — always attached (handles idle→playing Start, playing controls, etc.)
+  const touchHandler = new TouchHandler(canvas, () => game.state, input, config);
+  touchHandler.attach();
+
+  // Keyboard input — attached immediately (Game methods guard against non-playing states)
+  input.attach();
+
   // Enter starts game from idle screen
   const handleIdleStart = (e: KeyboardEvent) => {
     if (e.code === 'Enter' && game.state === 'idle') {
       game.start();
-      input.attach();
       window.removeEventListener('keydown', handleIdleStart);
     }
   };
@@ -41,13 +48,6 @@ async function main(): Promise<void> {
     }
   };
   window.addEventListener('keydown', handleGameOverRestart);
-
-  // Input initially detached — no premature movement on idle screen.
-  // Once attached (above), it stays active for all states:
-  //   - playing: normal controls
-  //   - paused:  unpause via Escape
-  //   - gameOver: restart via R key
-  // Non-playing state guards in Game methods prevent unwanted actions.
 
   // Game loop
   let lastTime = performance.now();
@@ -72,7 +72,7 @@ async function main(): Promise<void> {
     requestAnimationFrame(gameLoop);
   }
 
-  // Initial render (idle screen with "Press ENTER to start")
+  // Initial render (idle screen with "Press ENTER or Tap to start")
   renderer.render({
     board: game.board,
     currentPiece: game.currentPiece,

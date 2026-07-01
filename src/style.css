@@ -32,6 +32,7 @@ body {
 #game-canvas {
   display: block;
   border-radius: 8px;
+  touch-action: none;
   box-shadow: 
     0 0 30px rgba(0, 0, 0, 0.5),
     0 0 60px rgba(100, 50, 255, 0.1);
