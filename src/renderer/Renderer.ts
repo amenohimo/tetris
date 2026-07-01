@@ -141,6 +141,15 @@ class Renderer {
         this.drawGameOver(traceText);
         break;
     }
+
+    // Version (bottom-right)
+    this.ctx.fillStyle = '#333';
+    this.ctx.font = `${this.blockSize * 0.33}px "Courier New", monospace`;
+    this.ctx.textAlign = 'right';
+    this.ctx.textBaseline = 'bottom';
+    this.ctx.fillText(`v${__VERSION__}`, this.canvas.width - 2, this.canvas.height - 2);
+    this.ctx.textAlign = 'left';
+    this.ctx.textBaseline = 'alphabetic';
   }
 
   private drawBoard(board: BoardGrid): void {
