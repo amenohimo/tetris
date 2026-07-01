@@ -97,15 +97,17 @@ paused → 右上タップ → resume（即時）→ 200ms監視開始
 
 初回起動時（idle → playing への初回遷移時）、以下のチュートリアルを3秒間表示する。localStorage にフラグを保存し、2回目以降は表示しない。
 
-| 表示位置 | 内容 | 表現 |
-|---------|------|------|
-| 右上（NEXTパネル上部） | Pause / Restart | 点線枠で囲み「Tap to Pause」「Double-tap to Restart」と表示 |
-| 左パネル（HOLD表示エリア） | Hold | 点線枠で囲み「Tap to Hold」と表示 |
-| 盤面左端 | 左回転 | 点線枠で囲み「Tap CCW」と表示 |
-| 盤面右端 | 右回転 | 点線枠で囲み「Tap CW」と表示 |
-| 盤面下部（下2行） | Hard Drop | 点線枠で囲み「Tap to Hard Drop」と表示 |
+表示スタイル: 半透明のダーク背景（`rgba(10, 10, 26, 0.85)`）に細い枠線（`#00f0f0`、幅1px）とグローエフェクト。テキストはゲーム内と同じ `Courier New` モノスペースで `#aaa`。各枠はフェードイン（0.3s）→ 表示（2.5s）→ フェードアウト（0.5s）。枠の形状は角丸（radius: 4px）で、ゲームの洗練されたUIに溶け込む。
 
-以降は全表示を消し、視覚的ノイズゼロでプレイできる。
+| 表示位置 | 内容 | テキスト |
+|---------|------|---------|
+| 右上（NEXTパネル上部、Pauseゾーン） | Pause / Restart | 「Tap to Pause」「Double-tap to Restart」 |
+| 左パネル（HOLD表示ボックス） | Hold | 「Tap to Hold」 |
+| 盤面左端 | 左回転 | 「Tap CCW」 |
+| 盤面右端 | 右回転 | 「Tap CW」 |
+| 盤面下部（下2行） | Hard Drop | 「Tap to Hard Drop」 |
+
+3秒経過後、全表示はスムーズにフェードアウト。以降は視覚的ノイズゼロ。
 
 ## Architecture Decision
 
