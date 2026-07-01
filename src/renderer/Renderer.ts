@@ -314,11 +314,11 @@ class Renderer {
 
     const panelX = PANEL_WIDTH + BOARD_COLS * this.blockSize;
 
-    // Label - shifted down for Pause/Restart zone
+    // Label
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `bold ${this.blockSize * 0.7}px "Courier New", monospace`;
     this.ctx.textAlign = 'center';
-    this.ctx.fillText('NEXT', panelX + PANEL_WIDTH / 2, this.blockSize * 3);
+    this.ctx.fillText('NEXT', panelX + PANEL_WIDTH / 2, this.blockSize * 1.5);
 
     // Show up to 3 next pieces
     const maxPreview = Math.min(3, nextQueue.length);
@@ -329,7 +329,7 @@ class Renderer {
 
       const boxSize = previewCellSize * 5;
       const boxX = panelX + (PANEL_WIDTH - boxSize) / 2;
-      const boxY = this.blockSize * 4 + i * (boxSize + this.blockSize * 0.5);
+      const boxY = this.blockSize * 2.5 + i * (boxSize + this.blockSize * 0.5);
 
       // Preview box
       this.ctx.strokeStyle = '#333';
@@ -376,8 +376,8 @@ class Renderer {
     this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
     this.ctx.textAlign = 'center';
 
-    // Position below HOLD preview box (HOLD box ends at ~blockSize*6.5)
-    const startY = this.blockSize * 7.5;
+    // Position centered vertically between HOLD box bottom and canvas bottom
+    const startY = this.blockSize * 11;
     const lineHeight = this.blockSize * 1.8;
 
     // SCORE

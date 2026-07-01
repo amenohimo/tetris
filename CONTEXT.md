@@ -6,9 +6,9 @@
 
 ```
 ┌────┬──────────────────┬────┐
-│HOLD│                  │⏸ ↺│  Pause/Restart
-│    │                  ├────┤
-│    │  ソフトドロップ    │NEXT│
+│HOLD│                  │NEXT│
+│    │                  │    │
+│    │  ソフトドロップ    │    │
 │    │  (盤面 上20行)    │    │
 │SCOR│                  │    │
 │E   ├──────────────────┤    │
@@ -18,13 +18,14 @@
 │S   │ ハードドロップ     │    │
 │    │ (ゲーム枠外の下部)  │    │
 └────┴──────────────────┴────┘
+                          [⏸ ↺]  ← 右上オーバーレイ（独立）
 ```
 
 - **ソフトドロップ**: 盤面の上20行。縦ドラッグで `touchmove` の移動量に応じて softDrop 発火
 - **ハードドロップ**: 盤面の下2行＋ゲーム枠外の下部領域。タップで hardDrop 発火
 - **左回転 / 右回転**: HOLD・NEXTパネルを含む盤面外の左右列全体
 - **Hold**: 左パネルのHOLD表示エリアをタップ
-- **Pause / Restart**: 右上の専用ゾーン（NEXTの上）。playing → pause、paused/gameOver → restart
+- **Pause / Restart**: キャンバス右上のオーバーレイ。playing → pause、paused/gameOver → restart。パネルレイアウトに影響を与えない
 
 ## Architecture Decision
 
@@ -36,6 +37,6 @@
 
 - HOLD: 左上
 - SCORE, LEVEL, LINES: HOLDの下（左側）
-- Pause/Restart: 右上（NEXTの上）
+- Pause/Restart: 右上オーバーレイ（キャンバス右上、パネルと独立）
 - NEXT: 右上（Pause/Restartの下）
 - Board: 中央（変更なし）
