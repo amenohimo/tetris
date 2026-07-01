@@ -157,10 +157,15 @@ class Game {
   rotateCW(): boolean {
     if (!this.currentPiece || this.state !== 'playing') return false;
 
+    const prevPos = { ...this.currentPiece.position };
+    const prevRot = this.currentPiece.rotation;
     const rotated = rotateCW(this.currentPiece, this.board);
     if (rotated) {
       this.currentPiece = rotated;
       this.onPieceManipulated();
+      const dx = this.currentPiece.position.x - prevPos.x;
+      const dy = this.currentPiece.position.y - prevPos.y;
+      this.logTrace('ROT+R', `${this.currentPiece.type} kick(${dx},${dy}) r${prevRot}→${this.currentPiece.rotation}`);
       return true;
     }
     return false;
@@ -169,10 +174,15 @@ class Game {
   rotateCCW(): boolean {
     if (!this.currentPiece || this.state !== 'playing') return false;
 
+    const prevPos = { ...this.currentPiece.position };
+    const prevRot = this.currentPiece.rotation;
     const rotated = rotateCCW(this.currentPiece, this.board);
     if (rotated) {
       this.currentPiece = rotated;
       this.onPieceManipulated();
+      const dx = this.currentPiece.position.x - prevPos.x;
+      const dy = this.currentPiece.position.y - prevPos.y;
+      this.logTrace('ROT-L', `${this.currentPiece.type} kick(${dx},${dy}) r${prevRot}→${this.currentPiece.rotation}`);
       return true;
     }
     return false;

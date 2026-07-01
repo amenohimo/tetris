@@ -244,7 +244,7 @@ const O_KICKS: KickTable = {
 };
 
 const BOARD_WIDTH = 10;
-const BOARD_HEIGHT = 20;
+const BOARD_HEIGHT = 22; // ROWS (includes 2 hidden rows)
 
 // ---- Spawn positions ----
 
