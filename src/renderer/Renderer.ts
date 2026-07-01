@@ -381,8 +381,9 @@ class Renderer {
     this.ctx.textAlign = 'center';
 
     // Position centered vertically between HOLD box bottom and canvas bottom
-    const startY = this.blockSize * 10.5;
-    const lineHeight = this.blockSize * 2.4;
+    const startY = this.blockSize * 10;
+    const lineHeight = this.blockSize * 2.8;
+    const valueOffset = this.blockSize * 0.8;
 
     // SCORE
     this.ctx.fillText('SCORE', panelWidth / 2, startY);
@@ -391,7 +392,7 @@ class Renderer {
     this.ctx.fillText(
       String(scoreState.score).padStart(8, '0'),
       panelWidth / 2,
-      startY + this.blockSize * 1.2
+      startY + valueOffset
     );
 
     // LEVEL
@@ -403,7 +404,7 @@ class Renderer {
     this.ctx.fillText(
       String(scoreState.level),
       panelWidth / 2,
-      startY + lineHeight + this.blockSize * 1.2
+      startY + lineHeight + valueOffset
     );
 
     // LINES
@@ -415,7 +416,7 @@ class Renderer {
     this.ctx.fillText(
       String(scoreState.lines),
       panelWidth / 2,
-      startY + lineHeight * 2 + this.blockSize * 1.2
+      startY + lineHeight * 2 + valueOffset
     );
   }
 
