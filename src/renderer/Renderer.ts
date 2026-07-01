@@ -393,7 +393,7 @@ class Renderer {
     const infoY = scoreY + bs * 3.2;
     const lineH = bs * 1.4;
     const labelX = panelWidth * 0.35;
-    const valueX = panelWidth * 0.35 + bs * 1.0;
+    const valueX = labelX + bs * 0.6;
 
     this.ctx.fillStyle = '#666';
     this.ctx.font = `${bs * 0.45}px "Courier New", monospace`;
