@@ -619,7 +619,7 @@ class Renderer {
 
     // 1. Hold (left panel HOLD box)
     this.drawTutorialBox(
-      boxX, boxY + bs * 0.3, boxSize, boxSize * 0.5,
+      boxX, boxY, boxSize, boxSize,
       'Tap to Hold', textColor, accentColor
     );
 
@@ -632,8 +632,8 @@ class Renderer {
 
     // 3. Hard Drop (board bottom 2 rows)
     this.drawTutorialBox(
-      boardLeft + bs * 0.3, (BOARD_ROWS - 1.5) * bs,
-      BOARD_COLS * bs - bs * 0.6, bs * 1.2,
+      boardLeft, (BOARD_ROWS - 2) * bs,
+      BOARD_COLS * bs, bs * 2,
       'Tap to Hard Drop', textColor, accentColor
     );
 
