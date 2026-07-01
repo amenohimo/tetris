@@ -51,6 +51,23 @@ async function main(): Promise<void> {
 
   // Game loop
   let lastTime = performance.now();
+  let prevState = game.state;
+
+  // Trace UI
+  const traceContainer = document.getElementById('trace-container') as HTMLElement;
+  const traceOutput = document.getElementById('trace-output') as HTMLTextAreaElement;
+  const traceCopy = document.getElementById('trace-copy') as HTMLButtonElement;
+
+  traceCopy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(traceOutput.value);
+    } catch {
+      traceOutput.select();
+      document.execCommand('copy');
+    }
+    traceCopy.textContent = 'COPIED';
+    setTimeout(() => (traceCopy.textContent = 'COPY'), 1500);
+  });
 
   function gameLoop(currentTime: number): void {
     const deltaTime = Math.min(currentTime - lastTime, 100); // cap to avoid spiral
@@ -58,6 +75,8 @@ async function main(): Promise<void> {
 
     input.update(deltaTime);
     game.update(deltaTime);
+
+    const traceText = game.state === 'gameOver' ? game.getTraceText() : undefined;
 
     renderer.render({
       board: game.board,
@@ -67,7 +86,17 @@ async function main(): Promise<void> {
       scoreState: game.scoreState,
       holdInfo: game.holdInfo,
       nextQueue: game.nextQueue,
+      traceText,
     });
+
+    // Show/hide trace UI
+    if (game.state === 'gameOver' && prevState !== 'gameOver') {
+      traceOutput.value = game.getTraceText();
+      traceContainer.style.display = 'block';
+    } else if (game.state !== 'gameOver') {
+      traceContainer.style.display = 'none';
+    }
+    prevState = game.state;
 
     requestAnimationFrame(gameLoop);
   }

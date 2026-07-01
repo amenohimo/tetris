@@ -91,8 +91,9 @@ class Renderer {
     scoreState: ScoreState;
     holdInfo: HoldInfo;
     nextQueue: PieceType[];
+    traceText?: string;
   }): void {
-    const { board, currentPiece, ghostPosition, state, scoreState, holdInfo, nextQueue } = gameState;
+    const { board, currentPiece, ghostPosition, state, scoreState, holdInfo, nextQueue, traceText } = gameState;
     const PANEL_WIDTH = this.blockSize * 5;
 
     // Clear and draw background
@@ -137,7 +138,7 @@ class Renderer {
         this.drawTutorial();
         break;
       case 'gameOver':
-        this.drawGameOver();
+        this.drawGameOver(traceText);
         break;
     }
   }
@@ -429,7 +430,7 @@ class Renderer {
     this.ctx.textAlign = 'center';
   }
 
-  private drawGameOver(): void {
+  private drawGameOver(traceText?: string): void {
     // Overlay
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -440,30 +441,43 @@ class Renderer {
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'middle';
 
-    // Glow effect
     this.ctx.shadowColor = '#ff0000';
     this.ctx.shadowBlur = 20;
 
-    this.ctx.fillText(
-      'GAME OVER',
-      this.canvas.width / 2,
-      this.canvas.height / 2 - this.blockSize * 2
-    );
+    const titleY = this.canvas.height / 2 - this.blockSize * 3;
+    this.ctx.fillText('GAME OVER', this.canvas.width / 2, titleY);
 
-    // Reset shadow
     this.ctx.shadowColor = 'transparent';
     this.ctx.shadowBlur = 0;
 
-    // Score
+    // Restart hint
     this.ctx.fillStyle = '#ccc';
     this.ctx.font = `${this.blockSize * 1}px "Courier New", monospace`;
     this.ctx.fillText(
       'Press ENTER or Tap to restart',
       this.canvas.width / 2,
-      this.canvas.height / 2 + this.blockSize * 2
+      titleY + this.blockSize * 3,
     );
 
+    // Trace
+    if (traceText) {
+      this.ctx.fillStyle = '#555';
+      this.ctx.font = `${this.blockSize * 0.38}px "Courier New", monospace`;
+      this.ctx.textAlign = 'left';
+      this.ctx.textBaseline = 'top';
+
+      const lines = traceText.split('\n').slice(-15);
+      const lineH = this.blockSize * 0.45;
+      const startY = this.canvas.height - lines.length * lineH - this.blockSize * 0.5;
+      const startX = this.blockSize * 0.5;
+
+      for (let i = 0; i < lines.length; i++) {
+        this.ctx.fillText(lines[i], startX, startY + i * lineH);
+      }
+    }
+
     this.ctx.textBaseline = 'alphabetic';
+    this.ctx.textAlign = 'left';
   }
 
   private drawPause(): void {

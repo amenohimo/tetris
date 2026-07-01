@@ -340,6 +340,10 @@ class Game {
     console.log('=== END TRACE (copy above) ===');
   }
 
+  getTraceText(): string {
+    return this.trace.join('\n');
+  }
+
   private goGameOver(reason: string): void {
     this.logTrace('GAMEOVER', reason);
     this.dumpTrace();
