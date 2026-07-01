@@ -683,17 +683,20 @@ class Renderer {
 
     // Calculate total height accounting for style-specific line heights
     let totalHeight = 0;
+    let hi = 0;
     for (let i = 0; i < lines.length; i++) {
       if (lines[i].length === 0) {
-        totalHeight += actionHeight * 0.5; // spacer
+        totalHeight += actionHeight * 0.5;
       } else {
-        totalHeight += (i % 2 === 0) ? actionHeight : keyHeight;
+        totalHeight += (hi % 2 === 0) ? actionHeight : keyHeight;
+        hi++;
       }
     }
 
     let currentY = y + h / 2 - totalHeight / 2;
     const evenColor = textColor;
     const oddColor = '#666';
+    let styleIndex = 0;
 
     for (let i = 0; i < lines.length; i++) {
       if (lines[i].length === 0) {
@@ -701,7 +704,8 @@ class Renderer {
         continue;
       }
 
-      const isAction = i % 2 === 0;
+      const isAction = styleIndex % 2 === 0;
+      styleIndex++;
       this.ctx.font = isAction
         ? `bold ${this.blockSize * 0.48}px "Courier New", monospace`
         : `${this.blockSize * 0.38}px "Courier New", monospace`;
