@@ -123,7 +123,9 @@ class Renderer {
     // Draw side panels
     this.drawHold(holdInfo);
     this.drawNext(nextQueue);
-    this.drawScore(scoreState);
+    if (state !== 'idle' && state !== 'gameOver') {
+      this.drawScore(scoreState);
+    }
 
     // Draw tutorial overlay (first-time only)
     if (this.tutorialStartTime > 0) {
