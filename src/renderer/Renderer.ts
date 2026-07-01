@@ -381,8 +381,8 @@ class Renderer {
     this.ctx.textAlign = 'center';
 
     // Position centered vertically between HOLD box bottom and canvas bottom
-    const startY = this.blockSize * 11;
-    const lineHeight = this.blockSize * 1.8;
+    const startY = this.blockSize * 10.5;
+    const lineHeight = this.blockSize * 2.4;
 
     // SCORE
     this.ctx.fillText('SCORE', panelWidth / 2, startY);
