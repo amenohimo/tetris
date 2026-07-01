@@ -136,6 +136,6 @@ touchHandler.attach();
 
 - HOLD: 左上
 - SCORE, LEVEL, LINES: HOLDの下（左側）
-- Pause/Restart: 右上オーバーレイ（キャンバス右上、パネルと独立）
-- NEXT: 右上（Pause/Restartの下）
-- Board: 中央（変更なし）
+- NEXT: 右上（HOLDと同じ高さで揃う）
+- Board: 中央
+- Pause/Restart ゾーン: 右パネル上端 blockSize*2 の領域。通常は非表示。初回チュートリアル時のみ点線枠表示
