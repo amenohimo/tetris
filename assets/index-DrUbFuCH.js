@@ -3,7 +3,7 @@ S`,c,s),this.drawTutorialBox(o+e*.3,e*.3,t-e*.6,e*6,`PAUSE
 Esc
 
 RESTART
-Esc x 2`,c,s),this.drawTutorialBox(a,(T-2)*e,w*e,e*2,`HARD DROP
+Double-Tap / R`,c,s),this.drawTutorialBox(a,(T-2)*e,w*e,e*2,`HARD DROP
 Space`,c,s),this.drawTutorialBox(e*.3,e*7,t-e*.6,T*e-e*7-e*.3,`CCW
 D`,c,s),this.drawTutorialBox(o+e*.3,e*7,t-e*.6,T*e-e*7-e*.3,`CW
 F`,c,s),this.ctx.restore()}drawTutorialBox(e,t,n,r,i,a,o){this.ctx.beginPath(),this.ctx.roundRect(e,t,n,r,4),this.ctx.fillStyle=`rgba(10, 10, 26, 0.85)`,this.ctx.fill(),this.ctx.strokeStyle=o,this.ctx.lineWidth=1,this.ctx.stroke(),this.ctx.shadowBlur=0,this.ctx.textAlign=`center`,this.ctx.textBaseline=`middle`;let s=i.split(`
