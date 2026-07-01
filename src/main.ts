@@ -23,11 +23,7 @@ async function main(): Promise<void> {
   input.on('rotateCCW', () => game.rotateCCW());
   input.on('hold', () => game.hold());
   input.on('pause', () => game.togglePause());
-  input.on('restart', () => {
-    const idleToPlaying = game.state === 'idle';
-    game.restart();
-    if (idleToPlaying) tryShowTutorial();
-  });
+  input.on('restart', () => game.restart());
 
   // Touch handler — always attached (handles idle→playing Start, playing controls, etc.)
   const touchHandler = new TouchHandler(canvas, () => game.state, input, config);
@@ -36,19 +32,11 @@ async function main(): Promise<void> {
   // Keyboard input — attached immediately (Game methods guard against non-playing states)
   input.attach();
 
-  // First-time tutorial trigger (idle → playing)
-  const tryShowTutorial = () => {
-    if (localStorage.getItem('tetris-tutorial-shown')) return;
-    localStorage.setItem('tetris-tutorial-shown', '1');
-    renderer.startTutorial();
-  };
-
   // Enter starts game from idle screen
   const handleIdleStart = (e: KeyboardEvent) => {
     if (e.code === 'Enter' && game.state === 'idle') {
       game.start();
       window.removeEventListener('keydown', handleIdleStart);
-      tryShowTutorial();
     }
   };
   window.addEventListener('keydown', handleIdleStart);

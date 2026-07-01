@@ -59,7 +59,6 @@ class Renderer {
   private canvas: HTMLCanvasElement;
   private blockSize: number;
   private config: GameConfig;
-  private tutorialStartTime = 0;
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
     this.canvas = canvas;
@@ -128,11 +127,6 @@ class Renderer {
       this.drawScore(scoreState);
     }
 
-    // Draw tutorial overlay (first-time only)
-    if (this.tutorialStartTime > 0) {
-      this.drawTutorial();
-    }
-
     // Draw state overlays
     switch (state) {
       case 'idle':
@@ -140,6 +134,7 @@ class Renderer {
         break;
       case 'paused':
         this.drawPause();
+        this.drawTutorial();
         break;
       case 'gameOver':
         this.drawGameOver();
@@ -603,25 +598,7 @@ class Renderer {
     };
   }
 
-  startTutorial(): void {
-    this.tutorialStartTime = performance.now();
-  }
-
   private drawTutorial(): void {
-    const elapsed = performance.now() - this.tutorialStartTime;
-
-    let alpha: number;
-    if (elapsed < 300) {
-      alpha = elapsed / 300;
-    } else if (elapsed < 2800) {
-      alpha = 1;
-    } else if (elapsed < 3300) {
-      alpha = 1 - (elapsed - 2800) / 500;
-    } else {
-      this.tutorialStartTime = 0;
-      return;
-    }
-
     const bs = this.blockSize;
     const PANEL_WIDTH = bs * 5;
     const previewCellSize = bs * 0.8;
@@ -635,7 +612,6 @@ class Renderer {
     const textColor = '#aaa';
 
     this.ctx.save();
-    this.ctx.globalAlpha = alpha;
 
     // Glow effect
     this.ctx.shadowColor = accentColor;
