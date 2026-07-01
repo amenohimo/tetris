@@ -29,8 +29,8 @@ export function isValidPosition(
       const bx = pos.x + col;
       const by = pos.y + row;
 
-      if (bx < 0 || bx >= COLS || by < 0 || by >= ROWS) return false;
-      if (board[by][bx] != null) return false;
+      if (bx < 0 || bx >= COLS || by >= ROWS) return false;
+      if (by >= 0 && board[by][bx] != null) return false;
     }
   }
   return true;
