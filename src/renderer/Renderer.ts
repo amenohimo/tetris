@@ -314,11 +314,11 @@ class Renderer {
 
     const panelX = PANEL_WIDTH + BOARD_COLS * this.blockSize;
 
-    // Label
+    // Label - shifted down for Pause/Restart zone
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `bold ${this.blockSize * 0.7}px "Courier New", monospace`;
     this.ctx.textAlign = 'center';
-    this.ctx.fillText('NEXT', panelX + PANEL_WIDTH / 2, this.blockSize * 1.5);
+    this.ctx.fillText('NEXT', panelX + PANEL_WIDTH / 2, this.blockSize * 3);
 
     // Show up to 3 next pieces
     const maxPreview = Math.min(3, nextQueue.length);
@@ -329,7 +329,7 @@ class Renderer {
 
       const boxSize = previewCellSize * 5;
       const boxX = panelX + (PANEL_WIDTH - boxSize) / 2;
-      const boxY = this.blockSize * 2.5 + i * (boxSize + this.blockSize * 0.5);
+      const boxY = this.blockSize * 4 + i * (boxSize + this.blockSize * 0.5);
 
       // Preview box
       this.ctx.strokeStyle = '#333';
@@ -370,47 +370,47 @@ class Renderer {
   }
 
   private drawScore(scoreState: ScoreState): void {
-    const panelX = (this.blockSize * 5) + BOARD_COLS * this.blockSize;
     const panelWidth = this.blockSize * 5;
 
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
     this.ctx.textAlign = 'center';
 
-    const startY = BOARD_ROWS * this.blockSize - this.blockSize * 6;
+    // Position below HOLD preview box (HOLD box ends at ~blockSize*6.5)
+    const startY = this.blockSize * 7.5;
     const lineHeight = this.blockSize * 1.8;
 
     // SCORE
-    this.ctx.fillText('SCORE', panelX + panelWidth / 2, startY);
+    this.ctx.fillText('SCORE', panelWidth / 2, startY);
     this.ctx.fillStyle = '#fff';
     this.ctx.font = `bold ${this.blockSize * 0.8}px "Courier New", monospace`;
     this.ctx.fillText(
       String(scoreState.score).padStart(8, '0'),
-      panelX + panelWidth / 2,
+      panelWidth / 2,
       startY + this.blockSize * 1.2
     );
 
     // LEVEL
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
-    this.ctx.fillText('LEVEL', panelX + panelWidth / 2, startY + lineHeight);
+    this.ctx.fillText('LEVEL', panelWidth / 2, startY + lineHeight);
     this.ctx.fillStyle = '#fff';
     this.ctx.font = `bold ${this.blockSize * 0.8}px "Courier New", monospace`;
     this.ctx.fillText(
       String(scoreState.level),
-      panelX + panelWidth / 2,
+      panelWidth / 2,
       startY + lineHeight + this.blockSize * 1.2
     );
 
     // LINES
     this.ctx.fillStyle = '#aaa';
     this.ctx.font = `bold ${this.blockSize * 0.6}px "Courier New", monospace`;
-    this.ctx.fillText('LINES', panelX + panelWidth / 2, startY + lineHeight * 2);
+    this.ctx.fillText('LINES', panelWidth / 2, startY + lineHeight * 2);
     this.ctx.fillStyle = '#fff';
     this.ctx.font = `bold ${this.blockSize * 0.8}px "Courier New", monospace`;
     this.ctx.fillText(
       String(scoreState.lines),
-      panelX + panelWidth / 2,
+      panelWidth / 2,
       startY + lineHeight * 2 + this.blockSize * 1.2
     );
   }
