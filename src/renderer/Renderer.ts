@@ -120,10 +120,10 @@ class Renderer {
       this.drawPiece(currentPiece);
     }
 
-    // Draw side panels
-    this.drawHold(holdInfo);
-    this.drawNext(nextQueue);
+    // Draw side panels (only during active game states)
     if (state !== 'idle' && state !== 'gameOver') {
+      this.drawHold(holdInfo);
+      this.drawNext(nextQueue);
       this.drawScore(scoreState);
     }
 
