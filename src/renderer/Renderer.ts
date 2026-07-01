@@ -390,7 +390,7 @@ class Renderer {
     this.ctx.fillStyle = '#888';
     this.ctx.font = `${this.blockSize * 0.55}px "Courier New", monospace`;
     this.ctx.fillText(
-      String(scoreState.score).padStart(8, '0'),
+      String(scoreState.score),
       panelWidth / 2,
       startY + valueOffset
     );
